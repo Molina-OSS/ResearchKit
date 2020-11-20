@@ -40,7 +40,7 @@
 #import "ORKSkin.h"
 
 
-@interface ORKConsentReviewController () <UIWebViewDelegate>
+@interface ORKConsentReviewController ()
 
 @end
 
@@ -73,29 +73,29 @@
     
     self.view.backgroundColor = ORKColor(ORKBackgroundColorKey);
     
-    _webView = [UIWebView new];
-    [_webView loadHTMLString:_htmlString baseURL:ORKCreateRandomBaseURL()];
-    _webView.backgroundColor = ORKColor(ORKBackgroundColorKey);
-    _webView.scrollView.backgroundColor = ORKColor(ORKBackgroundColorKey);
-    _webView.delegate = self;
-    [_webView setClipsToBounds:YES];
-    _webView.translatesAutoresizingMaskIntoConstraints = NO;
+//    _webView = [UIWebView new];
+//    [_webView loadHTMLString:_htmlString baseURL:ORKCreateRandomBaseURL()];
+//    _webView.backgroundColor = ORKColor(ORKBackgroundColorKey);
+//    _webView.scrollView.backgroundColor = ORKColor(ORKBackgroundColorKey);
+//    _webView.delegate = self;
+//    [_webView setClipsToBounds:YES];
+//    _webView.translatesAutoresizingMaskIntoConstraints = NO;
     _toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     _toolbar.translucent = YES;
 
-    _webView.clipsToBounds = NO;
-    _webView.scrollView.clipsToBounds = NO;
+//    _webView.clipsToBounds = NO;
+//    _webView.scrollView.clipsToBounds = NO;
     [self updateLayoutMargins];
 
-    [self.view addSubview:_webView];
+//    [self.view addSubview:_webView];
     [self.view addSubview:_toolbar];
     
     [self setUpStaticConstraints];
 }
 
 - (void)updateLayoutMargins {
-    const CGFloat margin = ORKStandardHorizontalMarginForView(self.view);
-    _webView.scrollView.scrollIndicatorInsets = (UIEdgeInsets){.left = -margin, .right = -margin};
+//    const CGFloat margin = ORKStandardHorizontalMarginForView(self.view);
+//    _webView.scrollView.scrollIndicatorInsets = (UIEdgeInsets){.left = -margin, .right = -margin};
 }
     
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -104,43 +104,43 @@
 }
 
 - (void)setUpStaticConstraints {
-    NSMutableArray *constraints = [NSMutableArray new];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(_webView, _toolbar);
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_toolbar]|"
-                                                                             options:(NSLayoutFormatOptions)0
-                                                                             metrics:nil
-                                                                               views:views]];
-    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_webView][_toolbar]|"
-                                                                             options:(NSLayoutFormatOptions)0 metrics:nil
-                                                                               views:views]];
-    
-    [constraints addObject:[NSLayoutConstraint constraintWithItem:_toolbar
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationEqual
-                                                           toItem:nil
-                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                       multiplier:1.0
-                                                         constant:ORKGetMetricForWindow(ORKScreenMetricToolbarHeight, self.view.window)]];
-    
-    [NSLayoutConstraint activateConstraints:constraints];
+//    NSMutableArray *constraints = [NSMutableArray new];
+//
+//    NSDictionary *views = NSDictionaryOfVariableBindings(_toolbar);
+//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_toolbar]|"
+//                                                                             options:(NSLayoutFormatOptions)0
+//                                                                             metrics:nil
+//                                                                               views:views]];
+//    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_webView][_toolbar]|"
+//                                                                             options:(NSLayoutFormatOptions)0 metrics:nil
+//                                                                               views:views]];
+//
+//    [constraints addObject:[NSLayoutConstraint constraintWithItem:_toolbar
+//                                                        attribute:NSLayoutAttributeHeight
+//                                                        relatedBy:NSLayoutRelationEqual
+//                                                           toItem:nil
+//                                                        attribute:NSLayoutAttributeNotAnAttribute
+//                                                       multiplier:1.0
+//                                                         constant:ORKGetMetricForWindow(ORKScreenMetricToolbarHeight, self.view.window)]];
+//
+//    [NSLayoutConstraint activateConstraints:constraints];
 }
 
 - (void)updateViewConstraints {
     [super updateViewConstraints];
-    if (!_variableConstraints) {
-        _variableConstraints = [NSMutableArray new];
-    }
-    [NSLayoutConstraint deactivateConstraints:_variableConstraints];
-    [_variableConstraints removeAllObjects];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(_webView, _toolbar);
-    const CGFloat horizontalMargin = ORKStandardHorizontalMarginForView(self.view);
-    [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-horizMargin-[_webView]-horizMargin-|"
-                                                                      options:(NSLayoutFormatOptions)0
-                                                                                      metrics:@{ @"horizMargin": @(horizontalMargin) }
-                                                                        views:views]];
-    [NSLayoutConstraint activateConstraints:_variableConstraints];
+//    if (!_variableConstraints) {
+//        _variableConstraints = [NSMutableArray new];
+//    }
+//    [NSLayoutConstraint deactivateConstraints:_variableConstraints];
+//    [_variableConstraints removeAllObjects];
+//    
+//    NSDictionary *views = NSDictionaryOfVariableBindings(_toolbar);
+//    const CGFloat horizontalMargin = ORKStandardHorizontalMarginForView(self.view);
+//    [_variableConstraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-horizMargin-[_webView]-horizMargin-|"
+//                                                                      options:(NSLayoutFormatOptions)0
+//                                                                                      metrics:@{ @"horizMargin": @(horizontalMargin) }
+//                                                                        views:views]];
+//    [NSLayoutConstraint activateConstraints:_variableConstraints];
 }
 
 - (IBAction)cancel {
@@ -171,12 +171,12 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if (navigationType != UIWebViewNavigationTypeOther) {
-        [[UIApplication sharedApplication] openURL:request.URL];
-        return NO;
-    }
-    return YES;
-}
+//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+//    if (navigationType != UIWebViewNavigationTypeOther) {
+//        [[UIApplication sharedApplication] openURL:request.URL];
+//        return NO;
+//    }
+//    return YES;
+//}
 
 @end

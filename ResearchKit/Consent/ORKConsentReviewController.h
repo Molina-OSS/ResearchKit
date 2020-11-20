@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithHTML:(NSString *)html delegate:(id<ORKConsentReviewControllerDelegate>)delegate;
 
-@property (nonatomic, strong, nullable) UIWebView *webView;
+//@property (nonatomic, strong, nullable) UIWebView *webView;
 
 @property (nonatomic, weak, nullable) id<ORKConsentReviewControllerDelegate> delegate;
 
